@@ -123,6 +123,57 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
+## Example (using LocalTuya controller):
+localtuya_remotes_codes:
+```json
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "localtuya_remotes_codes",
+  "data": {
+    "0000000000000000000": {
+      "office_ac": {
+        "Power": "<base64 learned ir code 1>",
+        "Mode": "<base64 learned ir code 2>"
+      }
+    }
+  }
+}
+```
+
+4000.json:
+```json
+{
+  "manufacturer":"Manufacturer name",
+  "supportedModels":[
+    "HVAC model"
+  ],
+  "supportedController": "LocalTuya",
+  "commandsEncoding": "Raw",
+  ...
+  "commands":{
+    "off":"Power",
+    "on": "Power",
+    "mode": "Mode"
+  }
+}
+```
+
+HA configuration.yaml:
+```yaml
+smartir:
+
+climate:
+  - platform: smartir
+    name: Office AC
+    unique_id: office_ac
+    device_code: 4000
+    controller_data: 192.168.10.10
+    temperature_sensor: sensor.temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+```
+
 ## Available codes for climate devices:
 The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
 Contributing to your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
