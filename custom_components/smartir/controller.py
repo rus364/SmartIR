@@ -6,7 +6,7 @@ import logging
 import json
 
 from homeassistant.const import ATTR_ENTITY_ID
-from homeassistant.components.remote import ATTR_DEVICE
+from homeassistant.components.remote import ATTR_DELAY_SECS, ATTR_DEVICE
 from . import Helper
 
 _LOGGER = logging.getLogger(__name__)
@@ -92,7 +92,7 @@ class LocalTuyaController(AbstractController):
             ATTR_ENTITY_ID: self._controller_data,
             ATTR_DEVICE: self._unique_id,
             'command': commands,
-            'delay_secs': self._delay
+            ATTR_DELAY_SECS: self._delay
         }
 
         await self.hass.services.async_call(
